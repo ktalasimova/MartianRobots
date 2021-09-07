@@ -39,8 +39,9 @@ namespace MartianRobots.Domain.Entities
         {
             var exploredArea = exploredSurfaces.Count;
             var totalArea = (upperRightCorner.X - lowerLeftCorner.X) * (upperRightCorner.Y - lowerLeftCorner.Y);
+            var exploredRate = (double)exploredArea / totalArea;
 
-            return (exploredArea / totalArea) * 100;
+            return exploredRate * 100;
         }
     }
 }
