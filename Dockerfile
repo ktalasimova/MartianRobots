@@ -5,16 +5,16 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["MartianRobots.WebApi/MartianRobots.WebApi.csproj", "MartianRobots.WebApi/"]
-RUN dotnet restore "MartianRobots.WebApi/MartianRobots.WebApi.csproj"
 COPY . .
+
+RUN dotnet restore "MartianRobots.WebApi/MartianRobots.WebApi.csproj"
+
 WORKDIR "/src/MartianRobots.WebApi"
 RUN dotnet build "MartianRobots.WebApi.csproj" -c Release -o /app/build
+
 
 FROM build AS publish
 RUN dotnet publish "MartianRobots.WebApi.csproj" -c Release -o /app/publish
